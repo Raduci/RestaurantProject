@@ -1,0 +1,13 @@
+.button {
+    -fx-padding: 8 15 8 15;
+    -fx-background-radius: 4px;
+    -fx-border-radius: 4px;
+    -fx-font-size: 14px;
+}
+
+.my-pane {
+    -fx-background-image: url('images/background.jpg');
+    -fx-background-size: cover;
+    -fx-background-repeat: no-repeat;
+}
+
