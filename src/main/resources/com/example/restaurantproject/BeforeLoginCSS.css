@@ -57,11 +57,12 @@
 }
 
 .welcome-message{
-    font-size: 220px;
-    font-family: 'Verdana', sans-serif;
+    font-size: 500px;
+    font-family: "Anton", sans-serif;
     -fx-background-radius: 0;
     -fx-border-radius: 0;
-
+    font-weight: 400;
+    font-style: normal;
 }
 
 .navbar .button {
