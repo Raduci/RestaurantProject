@@ -70,10 +70,12 @@ public class UserManager {
         authenticatedUser = null;
     }
 
-    public void printUserIfAuthenticated() {
+    public String printUserIfAuthenticated() {
         if (authenticatedUser != null) {
             System.out.print("[" + authenticatedUser.getUsername().toUpperCase() + "] ");
         }
+        assert authenticatedUser != null;
+        return authenticatedUser.getUsername();
     }
 
     public static void printWelcomeMessageIfAuthenticated(){

@@ -26,7 +26,6 @@ import service.DBConnector;
 import service.UserManager;
 
 public class Main extends Application{
-
     VBox root = new VBox(15);
     GridPane formPane = new GridPane();
     private HBox buttonBox;
@@ -80,29 +79,37 @@ public class Main extends Application{
         primaryStage.setMaximized(true);
         primaryStage.show();
     }
-
     private void createAfterLoginForm(VBox root,GridPane formPane){
         formPane.getChildren().clear();
         StackPane stackPane = new StackPane();
+        stackPane.getChildren().clear();
 
         Button menuButton = new Button("Display Menu");
         Button accountButton = new Button("Manage Account");
         Button orderButton = new Button("Order");
 
 
-//        menuButton.setOnAction(e -> showMenu(formPane));
-//        accountButton.setOnAction(e -> showManageAccount(formPane));
-//        orderButton.setOnAction(e -> showOrderForm(formPane));
+//        menuButton.setOnAction(e -> arata meniul);
+//        accountButton.setOnAction(e -> meniu de cont sterge cont schimba parola etc);
+//        orderButton.setOnAction(e -> vezi comanda unde arata comanda + pret final + alege tips);
 
-        if (buttonBox == null) {
+
             buttonBox = new HBox(10, menuButton, accountButton, orderButton);
-            buttonBox.setAlignment(Pos.CENTER);
+            buttonBox.setAlignment(Pos.TOP_CENTER);
 
             stackPane.getChildren().add(buttonBox);
-            StackPane.setAlignment(buttonBox, Pos.CENTER);
-        }
+            StackPane.setAlignment(buttonBox, Pos.TOP_CENTER);
 
-        root.getChildren().add(stackPane);
+        String User = userManager.printUserIfAuthenticated();
+        Label welcomeLabel = new Label("Welcome," + User);
+        welcomeLabel.setStyle("-fx-text-fill: white; -fx-background-color: transparent;");
+        welcomeLabel.setAlignment(Pos.CENTER);
+
+        formPane.add(welcomeLabel,0,0);
+        formPane.setPadding(new Insets(50, 100, 50, 100));
+        formPane.setStyle("-fx-background-color: rgba(0, 0, 0, 0.5); -fx-border-width: 0;");
+
+        root.getChildren().addAll(formPane, stackPane);
         VBox.setVgrow(stackPane, Priority.ALWAYS);
     }
     private HBox createNavbar() {
@@ -224,21 +231,21 @@ public class Main extends Application{
     private void createBeforeLoginForm(VBox root, GridPane formPane) {
         StackPane stackPane = new StackPane();
         Button loginButton = new Button("Intra in cont!");
-        Button registerButton = new Button("Inregistreza-te!");
+        Button registerButton = new Button("Inregistreaza-te!");
 
-
-        loginButton.setOnAction(e -> showLoginForm(formPane));
+        loginButton.setOnAction(e -> {
+            showLoginForm(formPane);
+            loginButton.setVisible(false);
+            registerButton.setVisible(false);
+        });
         registerButton.setOnAction(e -> showRegisterForm(formPane));
 
-        if (buttonBox == null) {
-            buttonBox = new HBox(10, loginButton, registerButton);
-            buttonBox.setAlignment(Pos.CENTER);
+        HBox buttonBox = new HBox(10, loginButton, registerButton);
+        buttonBox.setAlignment(Pos.CENTER);
 
+        stackPane.getChildren().add(buttonBox);
+        StackPane.setAlignment(buttonBox, Pos.CENTER);
 
-            stackPane.getChildren().add(buttonBox);
-            StackPane.setAlignment(buttonBox, Pos.CENTER);
-
-        }
         root.getChildren().add(stackPane);
         VBox.setVgrow(stackPane, Priority.ALWAYS);
 
