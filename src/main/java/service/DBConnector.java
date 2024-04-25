@@ -1,5 +1,6 @@
 package service;
 
+import com.example.restaurantproject.Main;
 import model.Meal;
 import model.User;
 
@@ -11,9 +12,9 @@ import java.util.List;
 public class DBConnector {
 
     private static DBConnector INSTANCE;
-    private static final String JDBC_URL = "jdbc:mysql://localhost:3306/meniurestaurant";
-    private static final String USER = "root";
-    private static final String PASSWORD = "";
+    public static final String JDBC_URL = "jdbc:mysql://localhost:3306/meniurestaurant";
+    public static final String USER = "root";
+    public static final String PASSWORD = "";
 
 
     public static final DBConnector getInstance(){
@@ -40,33 +41,8 @@ public class DBConnector {
 //        connection.close();
 //    }
 
-    public void displayMealsFromDB() throws SQLException {
-        connection = DriverManager.getConnection(JDBC_URL, USER, PASSWORD);
-
-        statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery("SELECT * FROM meniu");
-
-//        System.out.printf("%-5s %-20s %-10s %-10s\n", "ID", "Name", "Price", "Quantity");
 
 
-
-        System.out.println("ID    Name                     Price      Quantity");
-        System.out.println("----  -----------------------  ---------  -------------------------");
-
-        while (resultSet.next()) {
-            int id = resultSet.getInt("ID");
-            String name = resultSet.getString("Name");
-            double price = resultSet.getDouble("Price");
-            String quantity = resultSet.getString("Quantity");
-
-            if (name.length() > 30) {
-                name = name.substring(0, 25) + "...";
-            }
-            System.out.printf("%-5d %-30s %-10.2f %-50s\n", id, name, price, quantity);
-        }
-
-
-    }
 
     public void addUsersToDB(User user) throws SQLException{
         connection = DriverManager.getConnection(JDBC_URL, USER, PASSWORD);

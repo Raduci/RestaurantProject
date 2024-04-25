@@ -1,5 +1,6 @@
 package com.example.restaurantproject;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -7,9 +8,11 @@ import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.animation.RotateTransition;
 import javafx.util.Duration;
@@ -20,12 +23,22 @@ import java.sql.*;
 import java.util.*;
 import java.util.Date;
 
+import model.Meal;
 import model.Spacer;
 import model.User;
+import org.controlsfx.control.spreadsheet.Grid;
 import service.DBConnector;
 import service.UserManager;
 
+import static service.DBConnector.JDBC_URL;
+import static service.DBConnector.USER;
+import static service.DBConnector.PASSWORD;
+
 public class Main extends Application{
+    Connection connection;
+    PreparedStatement pStatement;
+    Statement statement;
+    private final TableView<Meal> tableView = new TableView<>();
     VBox root = new VBox(15);
     GridPane formPane = new GridPane();
     private HBox buttonBox;
@@ -33,6 +46,7 @@ public class Main extends Application{
     UserManager userManager = new UserManager();
     @Override
     public void start(Stage primaryStage) {
+        setupTable();
         Font.loadFont(getClass().getResourceAsStream("Anton-Regular.ttf"), 220);
         root = new VBox();
         root.setAlignment(Pos.TOP_CENTER);
@@ -69,7 +83,7 @@ public class Main extends Application{
         createAfterLoginForm(root, formPane);
         }
 
-        Scene scene = new Scene(root, 640, 560);
+        Scene scene = new Scene(root, 1920, 1080);
 
         formPane.setAlignment(Pos.BOTTOM_CENTER);
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("BeforeLoginCSS.css")).toExternalForm());
@@ -134,7 +148,11 @@ public class Main extends Application{
 
         homeButton.setOnAction(e -> {
             removeBeforeLoginForm(root);
-            homePageForm();
+            try {
+                homePageForm();
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
         });
         aboutButton.setOnAction(e -> {
             removeBeforeLoginForm(root);
@@ -392,21 +410,30 @@ public class Main extends Application{
         formPane.add(submitButton, 1, 2);
         GridPane.setHalignment(submitButton, HPos.CENTER);
     }
-    private void homePageForm(){formPane.getChildren().clear();
-        formPane.setAlignment(Pos.CENTER_LEFT);
+    private void homePageForm() throws SQLException{formPane.getChildren().clear();
+        formPane.setAlignment(Pos.CENTER);
 
         Label optionsLabel = new Label("Alege una din urmatoarele optiuni:");
         Label veziMeniuLabel = new Label("1. Vezi ce este disponibil in meniu");
         Label veziComandaLabel = new Label("2. Vezi comanda ta:");
         Label comandaLabel = new Label("3. Comanda un meniu:");
 
+        optionsLabel.setStyle("-fx-background-color: transparent; -fx-text-fill: white;");
+        veziMeniuLabel.setStyle("-fx-background-color: transparent; -fx-text-fill: white;");
+        veziComandaLabel.setStyle("-fx-background-color: transparent; -fx-text-fill: white;");
+        comandaLabel.setStyle("-fx-background-color: transparent; -fx-text-fill: white;");
+
         Button veziMeniuButton = new Button("Vezi Meniu");
         Button veziComandaButton = new Button("Vezi Comanda");
         Button comandaButton = new Button("Comanda Meniu");
 
-        veziMeniuButton.setStyle("-fx-background-color: transparent;");
-        veziComandaButton.setStyle("-fx-background-color: transparent;");
-        comandaButton.setStyle("-fx-background-color: transparent;");
+        veziMeniuButton.setOnAction(e -> {
+            displayMealsFromDB();
+        });
+
+        veziMeniuButton.setStyle("-fx-background-color: white; -fx-text-fill: black;");
+        veziComandaButton.setStyle("-fx-background-color: white; -fx-text-fill: black;");
+        comandaButton.setStyle("-fx-background-color: white; -fx-text-fill: black;");
 
         Image menuImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("images/meniuIcon.png")));
         Image orderImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("images/comandaIcon.png")));
@@ -435,11 +462,89 @@ public class Main extends Application{
 
         formPane.setVgap(10);
     }
+
+    private void setupTable(){
+        tableView.getColumns().clear();
+
+        TableColumn<Meal,String> nameColumn = new TableColumn<>("Name");
+        TableColumn<Meal, Double> priceColumn = new TableColumn<>("Price");
+        TableColumn<Meal, String> quantityColumn = new TableColumn<>("Quantity");
+
+        nameColumn.setCellValueFactory(new PropertyValueFactory<Meal, String>("name"));
+        priceColumn.setCellValueFactory(new PropertyValueFactory<Meal, Double>("price"));
+        quantityColumn.setCellValueFactory(new PropertyValueFactory<Meal, String>("quantity"));
+
+        tableView.getColumns().addAll(nameColumn, priceColumn, quantityColumn);
+
+        tableView.setPrefSize(750, 400);
+        tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+
+        ScrollPane scrollPane = new ScrollPane(tableView);
+        scrollPane.setFitToWidth(true);
+        scrollPane.setPrefHeight(400);
+        scrollPane.setPrefWidth(750);
+        formPane.add(scrollPane, 0, 0);
+        GridPane.setVgrow(scrollPane, Priority.ALWAYS);
+
+
+    }
+    private void displayTable(GridPane formPane){
+        if (!formPane.getChildren().contains(tableView)) {
+            formPane.add(tableView, 0, 0);
+        }
+        tableView.setPrefWidth(Double.MAX_VALUE);
+        tableView.setPrefHeight(Double.MAX_VALUE);
+        GridPane.setHgrow(tableView, Priority.ALWAYS);
+        GridPane.setVgrow(tableView, Priority.ALWAYS);
+    }
+
+    private void displayTableInPopup() {
+        Stage popupStage = new Stage();
+        popupStage.setTitle("Menu Table");
+        popupStage.initModality(Modality.APPLICATION_MODAL);
+
+        ScrollPane scrollPane = new ScrollPane(tableView);
+        scrollPane.setFitToWidth(true);
+        scrollPane.setFitToHeight(true);
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+
+        Scene popupScene = new Scene(scrollPane, 800, 600);
+        popupStage.setScene(popupScene);
+        popupStage.showAndWait();
+    }
+
+    public void displayMealsFromDB() {
+        setupTable();
+
+        try (Connection connection = DriverManager.getConnection(JDBC_URL, USER, PASSWORD);
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery("SELECT * FROM meniu")) {
+
+//            tableView.getItems().clear();
+
+            while (resultSet.next()) {
+                String name = resultSet.getString("Name");
+                double price = resultSet.getDouble("Price");
+                String quantity = resultSet.getString("Quantity");
+                System.out.println("Fetched meal: " + name + ", " + price + ", " + quantity);
+                Meal meal = new Meal(name, price, quantity);
+                tableView.getItems().add(meal);
+                System.out.println("Current table view size: " + tableView.getItems().size());
+            }
+            System.out.println(tableView.getItems().size() + " rows fetched from the database.");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Error fetching data: " + e.getMessage());
+        }
+
+        Platform.runLater(this::displayTableInPopup);
+        tableView.refresh();
+    }
+
+
+
     public static void main(String[] args){
         launch(args);
     }
-
 }
-
-
-

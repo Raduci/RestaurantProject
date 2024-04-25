@@ -10,6 +10,11 @@ module com.example.restaurantproject {
     requires com.almasb.fxgl.all;
     requires java.sql;
 
+    opens model to javafx.base;
     opens com.example.restaurantproject to javafx.fxml;
     exports com.example.restaurantproject;
+
+
+
+
 }

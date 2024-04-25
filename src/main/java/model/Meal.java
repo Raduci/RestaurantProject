@@ -8,12 +8,11 @@ public class Meal {
     private double price;
     private String quantity;
 
-
-
-
     public Meal(){}
 
     public Meal(int id, String name, double price, String quantity) {}
+
+    public Meal(String name, double price, String quantity){}
 
     public int getID() {
         return ID;
