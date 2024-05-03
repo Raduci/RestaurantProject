@@ -466,15 +466,19 @@ public class Main extends Application{
     private void setupTable(){
         tableView.getColumns().clear();
 
-        TableColumn<Meal,String> nameColumn = new TableColumn<>("Name");
-        TableColumn<Meal, Double> priceColumn = new TableColumn<>("Price");
+        TableColumn<Meal, String> nameColumn = new TableColumn<>("Name");
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+
+        TableColumn<Meal, Number> priceColumn = new TableColumn<>("Price");
+        priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
+
         TableColumn<Meal, String> quantityColumn = new TableColumn<>("Quantity");
+        quantityColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
 
-        nameColumn.setCellValueFactory(new PropertyValueFactory<Meal, String>("name"));
-        priceColumn.setCellValueFactory(new PropertyValueFactory<Meal, Double>("price"));
-        quantityColumn.setCellValueFactory(new PropertyValueFactory<Meal, String>("quantity"));
-
-        tableView.getColumns().addAll(nameColumn, priceColumn, quantityColumn);
+        tableView.getColumns().clear();
+        tableView.getColumns().add(nameColumn);
+        tableView.getColumns().add(priceColumn);
+        tableView.getColumns().add(quantityColumn);
 
         tableView.setPrefSize(750, 400);
         tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
