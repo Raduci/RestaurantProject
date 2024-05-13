@@ -139,6 +139,7 @@ public class Main extends Application{
                 throw new RuntimeException(ex);
             }
         });
+
         aboutButton.setOnAction(e -> {
             removeBeforeLoginForm(root);
             showAboutUsForm(formPane);
