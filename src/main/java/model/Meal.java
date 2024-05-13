@@ -10,9 +10,18 @@ public class Meal {
 
     public Meal(){}
 
-    public Meal(int id, String name, double price, String quantity) {}
+    public Meal(int id, String name, double price, String quantity) {
+        this.ID = id;
+        this.name = name;
+        this.price = price;
+        this.quantity = quantity;
+    }
 
-    public Meal(String name, double price, String quantity){}
+    public Meal(String name, double price, String quantity){
+        this.name = name;
+        this.price = price;
+        this.quantity = quantity;
+    }
 
     public int getID() {
         return ID;
