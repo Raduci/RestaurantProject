@@ -48,7 +48,7 @@ public class Main extends Application{
         Label phoneLabel = new Label("0725 445 923");
         phoneLabel.setStyle("-fx-text-fill: white; -fx-background-color: transparent;");
 
-        Label hoursLabel = new Label("L-D: 11:00 - 23:00");
+        Label hoursLabel = new Label("M-D: 11:00 - 24:00");
         hoursLabel.setStyle("-fx-text-fill: white; -fx-background-color: transparent;");
         infoBar.getChildren().addAll(phoneLabel, new Spacer(), hoursLabel);
 
@@ -56,33 +56,30 @@ public class Main extends Application{
         containerForCentering.getChildren().add(formPane);
         StackPane.setAlignment(formPane, Pos.CENTER);
 
-
         HBox navbar = createNavbar();
         formPane = new GridPane();
         formPane.setVgap(10);
         formPane.setHgap(10);
         formPane.setAlignment(Pos.CENTER);
 
-
-
         root.getChildren().addAll(infoBar, navbar, formPane);
 
         if(!isLoggedIn){
             createBeforeLoginForm(root, formPane);
-        }else{
+        } else{
             createAfterLoginForm(root, formPane);
         }
-
         Scene scene = new Scene(root, 1920, 1080);
 
         formPane.setAlignment(Pos.BOTTOM_CENTER);
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("BeforeLoginCSS.css")).toExternalForm());
         primaryStage.getIcons().add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("images/2.png"))));
-        primaryStage.setTitle("Resturant Marius Grill");
+        primaryStage.setTitle("Lounge & Bistro Delicii Urbane");
         primaryStage.setScene(scene);
         primaryStage.setMaximized(true);
         primaryStage.show();
     }
+
     private void createAfterLoginForm(VBox root,GridPane formPane){
         formPane.getChildren().clear();
         StackPane stackPane = new StackPane();
@@ -99,7 +96,7 @@ public class Main extends Application{
         StackPane.setAlignment(buttonBox, Pos.TOP_CENTER);
 
         String User = userManager.printUserIfAuthenticated();
-        Label welcomeLabel = new Label("Welcome," + User);
+        Label welcomeLabel = new Label("Bine ai venit, " + User + "!");
         welcomeLabel.setStyle("-fx-text-fill: white; -fx-background-color: transparent;");
         welcomeLabel.setAlignment(Pos.CENTER);
 
@@ -151,7 +148,7 @@ public class Main extends Application{
 
 
 
-        Label welcomeLabel = new Label("Bine ati venit la Marius Grill!");
+        Label welcomeLabel = new Label("Bine ați venit la Lounge & Bistro Delicii Urbane!");
         welcomeLabel.setFont(Font.loadFont(getClass().getResourceAsStream("Anton-Regular.ttf"), 20));
         welcomeLabel.setStyle("-fx-font-family: 'Anton'; -fx-font-size: 20; -fx-background-radius: 0;" + "-fx-border-radius: 0;");
 
@@ -170,9 +167,9 @@ public class Main extends Application{
         formPane.setPadding(new Insets(50, 100, 50, 100));
         formPane.setStyle("-fx-background-color: rgba(0, 0, 0, 0.5); -fx-border-width: 0;");
 
-        Label povesteLabel = new Label("Povestea  Noastra!");
-        Label introducereTextLabel = new Label("Cum a inceput totul?");
-        Label cuprinsTextLabel = new Label("\"Marius Grill\" a fost fondat de Marius Popescu, un bucătar pasionat care a început să vândă mâncăruri gătite pe grătar dintr-un mic stand situat în centrul orașului său natal, în timpul unei perioade de revitalizare urbană. Marius a recunoscut potențialul de a crea o experiență culinară unică bazată pe tradițiile locale de gătit carne la grătar și a deschis primul restaurant \"Marius Grill\" în 2010. Acesta a devenit rapid popular pentru calitatea ingredientelor locale și pentru atmosfera sa caldă și primitoare. Sub brandingul lui Marius, care a îmbrățișat titlul de \"Maestru al Grătarului\", afacerea a crescut, iar imaginea sa a devenit un simbol recunoscut în publicitatea \"Marius Grill\". Expansiunea rapidă a afacerii a făcut ca gestionarea acesteia să devină o provocare, determinându-l pe Marius să se alieze cu parteneri de afaceri pentru a ajuta la administrare. \"Marius Grill\" a fost una dintre primele lanțuri de restaurante de tip grill care s-a extins la nivel internațional, deschizând sucursale în mai multe țări europene până la mijlocul anilor 2010. De-a lungul anilor, \"Marius Grill\" a întâmpinat succes variabil, navigând prin schimbări de proprietate și strategii de marketing diverse. În 2020, Marius a decis să transforme \"Marius Grill\" într-o franciză globală, cu scopul de a aduce bucătăria sa autentică pe piața internațională. Rețeaua a continuat să crească, adaptându-se piețelor locale și păstrându-și angajamentul față de calitate și autenticitate. În prezent, \"Marius Grill\" numără peste 50 de locații în Europa și se extinde rapid în alte regiuni, păstrându-și esența de restaurant de familie, chiar și pe măsură ce se adaptează la gusturile globale.");
+        Label povesteLabel = new Label("Povestea noastră!");
+        Label introducereTextLabel = new Label("Unde gustul a prins viață: o incursiune în gastronomie!");
+        Label cuprinsTextLabel = new Label("\"Lounge & Bistro Delicii Urbane\" de adaugat descriere!");
 
         povesteLabel.setStyle("-fx-text-fill: white; -fx-background-color: transparent;");
         introducereTextLabel.setStyle("-fx-text-fill: white; -fx-background-color: transparent;");
@@ -198,14 +195,14 @@ public class Main extends Application{
 
         Label nameLabel = new Label("Nume:");
         Label prenumeLabel = new Label("Prenume:");
-        Label emailLabel = new Label("Adresa de mail:");
+        Label emailLabel = new Label("Adresă de mail:");
         Label contactLabel = new Label("Contact:");
 
         TextField nameField = new TextField();
         TextField prenumeField = new TextField();
         TextField emailField = new TextField();
         TextArea contactArea = new TextArea();
-        Button submitButton = new Button("Trimite");
+        Button submitButton = new Button("Trimite!");
 
 
         contactArea.setMinSize(300, 100);
@@ -234,8 +231,8 @@ public class Main extends Application{
     }
     private void createBeforeLoginForm(VBox root, GridPane formPane) {
         StackPane stackPane = new StackPane();
-        Button loginButton = new Button("Intra in cont!");
-        Button registerButton = new Button("Inregistreaza-te!");
+        Button loginButton = new Button("Intră în cont!");
+        Button registerButton = new Button("Înregistrează-te!");
 
         loginButton.setOnAction(e -> {
             showLoginForm(formPane);
@@ -267,14 +264,12 @@ public class Main extends Application{
 
         Label usernameLabel = new Label("Nume de utilizator:");
         TextField usernameTextField = new TextField();
-        Label passwordLabel = new Label("Parola:");
+        Label passwordLabel = new Label("Parolă:");
         PasswordField passwordField = new PasswordField();
-        Button submitButton = new Button("Log In");
+        Button submitButton = new Button("Intră în cont!");
 
         usernameLabel.setStyle("-fx-text-fill: white; -fx-background-color: transparent;");
         passwordLabel.setStyle("-fx-text-fill: white; -fx-background-color: transparent;");
-
-
 
         formPane.add(usernameLabel, 0, 0);
         formPane.add(usernameTextField, 1, 0);
@@ -290,12 +285,12 @@ public class Main extends Application{
                 boolean isAuthenticated = userManager.authenticate(user);
                 if (isAuthenticated) {
                     DBConnector.getInstance().loginUsersIntoStore(user);
-                    System.out.println("Login-ul a fost realizat cu succes!");
+                    System.out.println("V-ați logat cu succes!");
                     formPane.getChildren().clear();
                     createAfterLoginForm(root, formPane);
 
                 } else {
-                    System.out.println("Username sau parola gresita!");
+                    System.out.println("Nume de utilizator sau parolă greșită!");
                     isLoggedIn = false;
                 }
             } catch (SQLException ex) {
@@ -316,17 +311,17 @@ public class Main extends Application{
         TextField nameTextField = new TextField();
         TextField emailTextField = new TextField();
         TextField phoneTextField = new TextField();
-        Button registerButton = new Button("Register");
+        Button registerButton = new Button("Înregistrează-te!");
 
         Label usernameLabel = new Label("Nume de utilizator:");
         usernameLabel.setStyle("-fx-text-fill: white; -fx-background-color: transparent;");
-        Label passwordLabel = new Label("Parola:");
+        Label passwordLabel = new Label("Parolă:");
         passwordLabel.setStyle("-fx-text-fill: white; -fx-background-color: transparent;");
         Label nameLabel = new Label("Nume:");
         nameLabel.setStyle("-fx-text-fill: white; -fx-background-color: transparent;");
-        Label emailLabel = new Label("Email:");
+        Label emailLabel = new Label("Adresă de mail:");
         emailLabel.setStyle("-fx-text-fill: white; -fx-background-color: transparent;");
-        Label phoneLabel = new Label("Numar de telefon:");
+        Label phoneLabel = new Label("Număr de telefon:");
         phoneLabel.setStyle("-fx-text-fill: white; -fx-background-color: transparent;");
 
         formPane.addRow(0, usernameLabel, usernameTextField);
@@ -338,10 +333,6 @@ public class Main extends Application{
         GridPane.setHalignment(registerButton, HPos.CENTER);
         GridPane.setValignment(registerButton, VPos.CENTER);
 
-
-
-
-
         registerButton.setOnAction(e -> {
             User user = new User(usernameTextField.getText(), passwordTextField.getText());
             user.setName(nameTextField.getText());
@@ -350,7 +341,7 @@ public class Main extends Application{
             try {
                 DBConnector.getInstance().addUsersToDB(user);
                 userManager.addUser(user);
-                System.out.println("Inregistrarea s-a realizat cu succes!");
+                System.out.println("V-ați înregistrat cu succes!");
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
@@ -385,9 +376,9 @@ public class Main extends Application{
 
         Label usernameLabel = new Label("Nume de utilizator:");
         TextField usernameTextField = new TextField();
-        Label passwordLabel = new Label("Parola:");
+        Label passwordLabel = new Label("Parolă:");
         PasswordField passwordField = new PasswordField();
-        Button submitButton = new Button("Log In");
+        Button submitButton = new Button("Intră în cont!");
 
         formPane.add(usernameLabel, 0, 0);
         formPane.add(usernameTextField, 1, 0);
@@ -396,20 +387,24 @@ public class Main extends Application{
         formPane.add(submitButton, 1, 2);
         GridPane.setHalignment(submitButton, HPos.CENTER);
     }
-    private void homePageForm() throws SQLException{formPane.getChildren().clear();
-        formPane.setAlignment(Pos.CENTER);
+    private void homePageForm() throws SQLException{
+        formPane.getChildren().clear();
 
-        Label optionsLabel = new Label("Alege una din urmatoarele optiuni:");
-        Label veziMeniuLabel = new Label("1. Vezi ce este disponibil in meniu");
-        Label comandaLabel = new Label("2. Comanda un meniu:");
+        formPane.setAlignment(Pos.CENTER);
+        formPane.setPadding(new Insets(50, 100, 50, 100));
+        formPane.setStyle("-fx-background-color: rgba(0, 0, 0, 0.5); -fx-border-width: 0;");
+
+        Label optionsLabel = new Label("Alege una din următoarele opțiuni:");
+        Label veziMeniuLabel = new Label("1. Preparate disponibile!");
+        Label comandaLabel = new Label("2. Comandă un preparat!");
 
         optionsLabel.setStyle("-fx-background-color: transparent; -fx-text-fill: white;");
         veziMeniuLabel.setStyle("-fx-background-color: transparent; -fx-text-fill: white;");
 
         comandaLabel.setStyle("-fx-background-color: transparent; -fx-text-fill: white;");
 
-        Button veziMeniuButton = new Button("Vezi Meniu");
-        Button comandaButton = new Button("Comanda Meniu");
+        Button veziMeniuButton = new Button("Meniul nostru!");
+        Button comandaButton = new Button("Comandă!");
 
         comandaButton.setOnAction(e -> showOrderForm(formPane));
         veziMeniuButton.setOnAction(e -> {
@@ -493,8 +488,8 @@ public class Main extends Application{
             formPane.add(tableView, 0, 0);
         }
 
-        Button backButton = new Button("Inapoi");
-        Button orderButton = new Button("Comanda");
+        Button backButton = new Button("Înapoi!");
+        Button orderButton = new Button("Comandă!");
         backButton.setOnAction(e -> {
             try {
                 homePageForm();
@@ -526,15 +521,15 @@ public class Main extends Application{
         formPane.setAlignment(Pos.TOP_CENTER);
 
         Label nameLabel = new Label("Nume:");
-        Label phoneNumberLabel = new Label("Numar de telefon:");
-        Label adressLabel = new Label("Adresa:");
-        Label orderLabel = new Label("Comanda:");
+        Label phoneNumberLabel = new Label("Număr de telefon:");
+        Label adressLabel = new Label("Adresă de mail:");
+        Label orderLabel = new Label("Comandă:");
 
         TextField nameField = new TextField();
         TextField prenumeField = new TextField();
         TextField emailField = new TextField();
         TextArea contactArea = new TextArea();
-        Button submitButton = new Button("Trimite");
+        Button submitButton = new Button("Trimite!");
 
 
         contactArea.setMinSize(300, 100);
