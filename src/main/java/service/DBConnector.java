@@ -25,25 +25,6 @@ public class DBConnector {
     }
     Connection connection;
     PreparedStatement pStatement;
-    Statement statement;
-
-
-//    public void addMealToDB(Meal meal) throws SQLException {
-//        connection = DriverManager.getConnection(JDBC_URL, USER, PASSWORD);
-//        String sql = "INSERT INTO products (ID, Name, Price, Quantity) VALUES (?, ?, ?, ?)";
-//        pStatement = connection.prepareStatement(sql);
-//        pStatement.setInt(1, meal.getID());
-//        pStatement.setString(2, meal.getName());
-//        pStatement.setDouble(3, meal.getPrice());
-//        pStatement.setString(4, meal.getQuantity());
-//        pStatement.executeUpdate();
-//        pStatement.close();
-//        connection.close();
-//    }
-
-
-
-
     public void addUsersToDB(User user) throws SQLException{
         connection = DriverManager.getConnection(JDBC_URL, USER, PASSWORD);
         String sql = "INSERT INTO users (ID, Username, Password, Name, Email, PhoneNumber) VALUES (?, ?, ?, ?, ?, ?)";
@@ -61,7 +42,6 @@ public class DBConnector {
         pStatement.close();
         connection.close();
     }
-
     public void loginUsersIntoStore(User user) throws SQLException{
         connection = DriverManager.getConnection(JDBC_URL, USER, PASSWORD);
         String sql = "SELECT id FROM users WHERE username=? AND password=?";
@@ -89,55 +69,5 @@ public class DBConnector {
         pStatement.close();
         connection.close();
     }
-    public List<Meal> orderMeal(List<Integer> itemIds) {
-        List<Meal> meals = new ArrayList<>();
-        Connection connection = null;
-        PreparedStatement pStatement = null;
-        ResultSet resultSet = null;
-
-        try {
-            connection = DriverManager.getConnection(JDBC_URL, USER, PASSWORD);
-            String sql = "SELECT id, name, price FROM meals WHERE id = ?";
-
-            for (Integer id : itemIds) {
-                pStatement = connection.prepareStatement(sql);
-                pStatement.setInt(1, id);
-                resultSet = pStatement.executeQuery();
-
-                if (resultSet.next()) {
-                    Meal meal = new Meal(resultSet.getInt("ID"), resultSet.getString("Name"), resultSet.getDouble("Price"),resultSet.getString("Quantity"));
-                    meals.add(meal);
-                }
-                pStatement.close();
-            }
-        } catch (SQLException e) {
-            System.out.println("Database error during meal ordering.");
-            e.printStackTrace();
-        } finally {
-            try {
-                if (resultSet != null) resultSet.close();
-                if (pStatement != null) pStatement.close();
-                if (connection != null) connection.close();
-            } catch (SQLException e) {
-                System.out.println("Error when closing the database connection.");
-                e.printStackTrace();
-            }
-        }
-        return meals;
-    }
-
-    public double calculateTotalPrice(List<Meal> meals) {
-        double totalPrice = 0.0;
-
-        for (Meal meal : meals) {
-            totalPrice += meal.getPrice();
-        }
-
-        System.out.println("Total Order Price: $" + totalPrice);
-        return totalPrice;
-    }
-
-
-
 }
 

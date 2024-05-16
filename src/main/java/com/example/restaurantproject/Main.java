@@ -17,6 +17,7 @@ import javafx.scene.text.*;
 import java.sql.*;
 import java.util.*;
 
+import javafx.stage.StageStyle;
 import model.Meal;
 import model.Spacer;
 import model.User;
@@ -69,11 +70,13 @@ public class Main extends Application{
         } else{
             createAfterLoginForm(root, formPane);
         }
-        Scene scene = new Scene(root, 1920, 1080);
+        Scene scene = new Scene(root, 1024, 768);
 
         formPane.setAlignment(Pos.BOTTOM_CENTER);
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("BeforeLoginCSS.css")).toExternalForm());
-        primaryStage.getIcons().add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("images/2.png"))));
+        primaryStage.getIcons().add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("images/deliciiurbane.png"))));
+        primaryStage.initStyle(StageStyle.TRANSPARENT);
+        scene.setFill(null);
         primaryStage.setTitle("Lounge & Bistro Delicii Urbane");
         primaryStage.setScene(scene);
         primaryStage.setMaximized(true);
@@ -112,7 +115,7 @@ public class Main extends Application{
         navbar.setAlignment(Pos.CENTER);
         navbar.getStyleClass().add("navbar");
 
-        ImageView logoView = new ImageView(new Image(Objects.requireNonNull(getClass().getResourceAsStream("images/2.png"))));
+        ImageView logoView = new ImageView(new Image(Objects.requireNonNull(getClass().getResourceAsStream("images/deliciiurbane.png"))));
         logoView.setFitHeight(115);
         logoView.setFitWidth(115);
 
@@ -167,9 +170,9 @@ public class Main extends Application{
         formPane.setPadding(new Insets(50, 100, 50, 100));
         formPane.setStyle("-fx-background-color: rgba(0, 0, 0, 0.5); -fx-border-width: 0;");
 
-        Label povesteLabel = new Label("Povestea noastră!");
+        Label povesteLabel = new Label("Care este povestea localului \"Lounge &Bistro Delicii Urbane\"? ");
         Label introducereTextLabel = new Label("Unde gustul a prins viață: o incursiune în gastronomie!");
-        Label cuprinsTextLabel = new Label("\"Lounge & Bistro Delicii Urbane\" de adaugat descriere!");
+        Label cuprinsTextLabel = new Label("Într-un cartier plin de viață al orașului, printre clădiri vechi și străzi aglomerate, se află un mic bistro cu o atmosferă aparte. Aici, fiecare farfurie pregătită are o poveste de spus, inspirată de agitația și diversitatea vieții urbane. Bistro-ul reprezintă un refugiu pentru cei dornici să descopere arome și gusturi noi, combinate în moduri inovatoare. Meniul său divers reflectă influențe din diferite culturi culinare, creând o experiență gastronomică internațională pentru clienții săi. Întreaga atmosferă din bistro respiră energie și creativitate, fiind un loc unde oamenii se simt inspirați și relaxați în același timp. Fiecare preparat este pregătit cu pasiune și atenție la detalii, aducând în farfurie o explozie de arome și texturi surprinzătoare. Bistro-ul este mai mult decât un simplu loc de luat masa - este o destinație pentru cei care își doresc să experimenteze deliciile  vieții urbane într-un mod inedit și captivant. Fiecare vizită în acest loc magic este o călătorie culinară plină de surprize și bucuria de a descoperi noi combinații și reinterpretări ale preparatelor tradiționale. Astfel, acest mic bistro a devenit un simbol al creativității și diversității din inima orașului, atrăgând clienți dornici să exploreze universul fascinant al deliciilor urbane.");
 
         povesteLabel.setStyle("-fx-text-fill: white; -fx-background-color: transparent;");
         introducereTextLabel.setStyle("-fx-text-fill: white; -fx-background-color: transparent;");

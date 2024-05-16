@@ -60,28 +60,12 @@ public class UserManager {
         connection.close();
         return isAuthenticated;
     }
-
-    public static User getAuthenticatedUser(){
-        return authenticatedUser;
-    }
-
-    public void logout() {
-        System.out.println("The user has been successfully logged out " + authenticatedUser.getUsername().toUpperCase());
-        authenticatedUser = null;
-    }
-
     public String printUserIfAuthenticated() {
         if (authenticatedUser != null) {
             System.out.print("[" + authenticatedUser.getUsername().toUpperCase() + "] ");
         }
         assert authenticatedUser != null;
         return authenticatedUser.getUsername();
-    }
-
-    public static void printWelcomeMessageIfAuthenticated(){
-        if(authenticatedUser != null){
-            System.out.println("Welcome " + authenticatedUser.getUsername());
-        }
     }
 
     @Override
@@ -95,10 +79,5 @@ public class UserManager {
     @Override
     public int hashCode() {
         return Objects.hash(userList);
-    }
-
-    public static User getUser() {
-        User user = new User();
-        return user;
     }
 }
