@@ -1,9 +1,7 @@
-Sure, I'll update the README file to include MySQL database integration and translate it into English.
-
 ```markdown
-# Urban Delights
+# Delicii Urbane
 
-Urban Delights is a desktop application developed with Java and JavaFX, styled with CSS, aimed at providing users with an interactive platform to discover and order urban culinary delights.
+Delicii Urbane is a desktop application developed with Java and JavaFX, styled with CSS, aimed at providing users with an interactive platform to discover and order urban culinary delights.
 
 ## Features
 
@@ -22,7 +20,7 @@ Urban Delights is a desktop application developed with Java and JavaFX, styled w
 
 ## System Requirements
 
-- JDK 19 or later
+- JDK 11 or later
 - JavaFX SDK
 - MySQL Server
 - An IDE compatible with Java (e.g., IntelliJ IDEA, Eclipse)
@@ -34,8 +32,8 @@ Urban Delights is a desktop application developed with Java and JavaFX, styled w
    Clone this repository:
 
    ```sh
-   git clone https://github.com/username/urban-delights.git
-   cd urban-delights
+   git clone https://github.com/username/delicii-urbane.git
+   cd delicii-urbane
    ```
 
 2. **Configure JavaFX**
@@ -53,13 +51,13 @@ Urban Delights is a desktop application developed with Java and JavaFX, styled w
    - Create a new database for the project:
 
      ```sql
-     CREATE DATABASE urban_delights;
+     CREATE DATABASE delicii_urbane;
      ```
 
    - Create the necessary tables. You can use the following SQL script as an example:
 
      ```sql
-     USE urban_delights;
+     USE delicii_urbane;
 
      CREATE TABLE products (
          id INT AUTO_INCREMENT PRIMARY KEY,
@@ -83,7 +81,7 @@ Urban Delights is a desktop application developed with Java and JavaFX, styled w
 
      ```properties
      # db.properties
-     db.url=jdbc:mysql://localhost:3306/urban_delights
+     db.url=jdbc:mysql://localhost:3306/delicii_urbane
      db.username=root
      db.password=yourpassword
      ```
@@ -99,7 +97,7 @@ Urban Delights is a desktop application developed with Java and JavaFX, styled w
    In your IDE, navigate to the main class of the application, typically named `Main.java`, and run the application.
 
    ```sh
-   src/main/java/com/urbandelights/Main.java
+   src/main/java/com/deliciiurbane/Main.java
    ```
 
 2. **Navigating the Application**
@@ -110,7 +108,7 @@ Urban Delights is a desktop application developed with Java and JavaFX, styled w
 
 ## Project Structure
 
-- `src/main/java/com/urbandelights/` - Contains Java source files
+- `src/main/java/com/deliciiurbane/` - Contains Java source files
 - `src/main/resources/css/` - Contains CSS files for styling
 - `src/main/resources/fxml/` - Contains FXML files for UI layouts
 - `src/main/resources/images/` - Contains images used in the application
