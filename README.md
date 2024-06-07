@@ -20,7 +20,7 @@ Delicii Urbane is a desktop application developed with Java and JavaFX, styled w
 
 ## System Requirements
 
-- JDK 11 or later
+- JDK 19 or later
 - JavaFX SDK
 - MySQL Server
 - An IDE compatible with Java (e.g., IntelliJ IDEA, Eclipse)
