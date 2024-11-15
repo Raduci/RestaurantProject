@@ -123,13 +123,10 @@ If you wish to contribute to this project, please follow the steps below:
 4. Push the branch (`git push origin feature/new-feature`).
 5. Open a Pull Request.
 
-## License
-
-This project is licensed under the [MIT License](LICENSE).
 
 ## Contact
 
-For any questions or suggestions, please contact the development team at [email@example.com](mailto:email@example.com).
+For any questions or suggestions, please contact the development team at [radustefan.gr@icloud.com](mailto:radustefan.gr@icloud.com).
 ```
 
 **a.** Add instructions for creating an executable build of the application using Maven or Gradle.
